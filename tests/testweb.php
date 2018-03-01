@@ -18,6 +18,9 @@ $session->start();
 $session->set("test", 1234);
 $session->set("test", 12345);
 $session->set("okok", 123456689);
+$session['haha'] = [
+        'sdfs1' => "sdf"
+];
 ?>
 <!doctype html>
 <html lang="fr">
@@ -34,6 +37,7 @@ dump($_COOKIE);
 dump($session->bridge->session);
 dump($session->get("okok"));
 dump($session->get("test"));
+dump($session['haha']);
 
 $session->unset("test");
 
