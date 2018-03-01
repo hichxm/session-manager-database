@@ -15,6 +15,7 @@ $session_method = new DATABASE_SessionManager([
 ]);
 $session = new SessionManager($session_method);
 $session->start();
+$session->set("test", 1234);
 ?>
 <!doctype html>
 <html lang="fr">
@@ -28,6 +29,7 @@ $session->start();
 <body>
 <?php
 dump($_COOKIE);
+dump($session->bridge->session);
 $session->stop();
 ?>
 </body>
