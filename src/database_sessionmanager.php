@@ -15,6 +15,8 @@ class DATABASE_SessionManager implements SessionInterface {
     private $database;
     private $table = "sessionmanager";
     private $token;
+    private $name;
+    private $length;
 
     /**
      * SessionInterface constructor.
@@ -23,6 +25,16 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function __construct($database = [], $option = [])
     {
+        //Initialise option
+        $option_default = [
+            "name" => "PHPSESSID",
+            "length" => 25
+        ];
+        $option_default = array_merge($option_default, $option);
+
+        $this->name = $option_default['name'];
+        $this->length = $option_default['length'];
+
         //Initialise database option
         $database_default = [
             "type" => "mysql",
