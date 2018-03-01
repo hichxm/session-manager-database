@@ -163,7 +163,7 @@ class DATABASE_SessionManager implements SessionInterface {
         $this->database->query(
             "CREATE TABLE IF NOT EXISTS `". $table ."` (
                     `id` INT(11) NOT NULL AUTO_INCREMENT,
-                    `token` VARCHAR(25) NOT NULL,
+                    `token` VARCHAR(". $this->length .") NOT NULL,
                     `name` VARCHAR(50) NULL DEFAULT NULL,
                     `value` LONGTEXT NULL,
                     `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
