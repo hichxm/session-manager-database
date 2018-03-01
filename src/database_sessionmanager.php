@@ -3,6 +3,7 @@
 namespace Hichxm\SessionManager\Session;
 
 use Medoo\Medoo;
+use Rych\Random\Random;
 use SessionInterface;
 
 /**
@@ -12,6 +13,7 @@ use SessionInterface;
 class DATABASE_SessionManager implements SessionInterface {
 
     private $database;
+    private $table = "sessionmanager";
 
     /**
      * SessionInterface constructor.
@@ -94,6 +96,28 @@ class DATABASE_SessionManager implements SessionInterface {
     public function unset($key)
     {
         // TODO: Implement unset() method.
+    }
+
+
+    /**
+     * @param int $length
+     * @return string
+     */
+    private function generateToken($length = 25) {
+        $string = new Random();
+        $string = $string->getRandomString($length);
+        $string = str_replace(".", "A", $string);
+        $string = str_replace("/", "B", $string);
+
+        $req = $this->database->select($this->table, "id", [
+            "token" => $string
+        ]);
+
+        if (empty($req)){
+            return $string;
+        }
+
+        $this->generateToken($length);
     }
 
     /**
