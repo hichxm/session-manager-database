@@ -62,8 +62,6 @@ class DATABASE_SessionManager implements SessionInterface {
                 'password' => $database_default['password']
             ]);
         }
-
-        $this->generateToken($this->length);
     }
 
     /**
@@ -72,7 +70,7 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function stop()
     {
-        // TODO: Implement stop() method.
+        $this->deleteCookie($this->name);
     }
 
     /**
@@ -86,7 +84,7 @@ class DATABASE_SessionManager implements SessionInterface {
             $this->createCookie($this->name);
         } else {
             $this->session = $this->database->select($this->table, "*", [
-               "token" => $this->token
+               "token" => $_COOKIE[$this->name]
             ]);
         }
     }
@@ -171,5 +169,14 @@ class DATABASE_SessionManager implements SessionInterface {
     private function createCookie($name = "PHPSESSID")
     {
         setcookie($name, $this->token);
+    }
+
+    /**
+     * @param string $name
+     * @return void
+     */
+    private function deleteCookie($name = "PHPSESSID")
+    {
+        unset($_COOKIE[$name]);
     }
 }
