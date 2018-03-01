@@ -60,6 +60,8 @@ class DATABASE_SessionManager implements SessionInterface {
                 'password' => $database_default['password']
             ]);
         }
+
+        $this->generateToken($this->length);
     }
 
     /**
