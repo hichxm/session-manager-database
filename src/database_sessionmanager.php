@@ -121,12 +121,12 @@ class DATABASE_SessionManager implements SessionInterface {
     }
 
     /**
-     * @param string $table
+     * @return void
      */
-    private function generateTable($table = "sessionmanager")
+    private function generateTable()
     {
         $this->database->query(
-            "CREATE TABLE IF NOT EXISTS `". $table ."` (
+            "CREATE TABLE IF NOT EXISTS `". $this->table ."` (
                     `id` INT(11) NOT NULL AUTO_INCREMENT,
                     `token` VARCHAR(25) NOT NULL,
                     `name` VARCHAR(50) NULL DEFAULT NULL,
