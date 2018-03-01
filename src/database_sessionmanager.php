@@ -13,7 +13,7 @@ use SessionInterface;
 class DATABASE_SessionManager implements SessionInterface {
 
     public $database;
-    
+
     private $table = "sessionmanager";
     private $token;
     private $name;
