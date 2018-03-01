@@ -32,6 +32,8 @@ $session->set("okok", 123456689);
 <?php
 dump($_COOKIE);
 dump($session->bridge->session);
+dump($session->get("okok"));
+dump($session->get("test"));
 $session->stop();
 ?>
 </body>

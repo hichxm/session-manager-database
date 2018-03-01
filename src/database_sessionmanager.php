@@ -105,7 +105,7 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function get($key)
     {
-
+        return $this->session[$key];
     }
 
     /**
