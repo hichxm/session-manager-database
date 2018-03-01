@@ -89,9 +89,12 @@ class DATABASE_SessionManager implements SessionInterface {
             $this->createCookie($this->name);
         } else {
             $this->token = $_COOKIE[$this->name];
-            $this->session = $this->database->select($this->table, "*", [
+            $datafromdatabase = $this->database->select($this->table, "*", [
                "token" => $_COOKIE[$this->name]
             ]);
+            foreach ($datafromdatabase as $data) {
+                $this->session[$data['name']] = $data['value'];
+            }
         }
     }
 
@@ -113,8 +116,8 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function set($key, $value)
     {
-        foreach ($this->session as $save) {
-            switch ($save['name']) {
+        foreach ($this->session as $save => $data) {
+            switch ($save) {
                 case $key:
                     $this->database->update($this->table, [
                         "value" => $value
@@ -122,12 +125,13 @@ class DATABASE_SessionManager implements SessionInterface {
                         "token" => $this->token,
                         "name" => $key
                     ]);
-
+                    $this->session[$key] = $value;
                     return ;
                     break;
             }
         }
 
+        $this->session[$key] = $value;
         $this->database->insert($this->table, [
             "token" => $this->token,
             "name" => $key,

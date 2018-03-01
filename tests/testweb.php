@@ -16,6 +16,8 @@ $session_method = new DATABASE_SessionManager([
 $session = new SessionManager($session_method);
 $session->start();
 $session->set("test", 1234);
+$session->set("test", 12345);
+$session->set("okok", 123456689);
 ?>
 <!doctype html>
 <html lang="fr">
