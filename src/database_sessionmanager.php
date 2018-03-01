@@ -19,7 +19,7 @@ class DATABASE_SessionManager implements SessionInterface {
     private $length = 25;
     private $token;
 
-    private $session;
+    public $session;
 
     /**
      * SessionInterface constructor.
@@ -113,7 +113,12 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function set($key, $value)
     {
-        // TODO: Implement set() method.
+        array_push($this->session, [$key => $value]);
+        $this->database->insert($this->table, [
+            "token" => $this->token,
+            "name" => $key,
+            "value" => $value
+        ]);
     }
 
     /**
