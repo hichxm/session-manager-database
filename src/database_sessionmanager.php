@@ -2,6 +2,7 @@
 
 namespace Hichxm\SessionManager\Session;
 
+use Medoo\Medoo;
 use SessionInterface;
 
 /**
@@ -10,11 +11,29 @@ use SessionInterface;
  */
 class DATABASE_SessionManager implements SessionInterface {
 
+    private $database;
+
     /**
      * SessionInterface constructor.
+     * @param array $database
+     * @param array $option
      */
-    public function __construct()
+    public function __construct($database = [], $option = [])
     {
+        //Initialise database option
+        $database_default = [
+            "type" => "mysql",
+            "name" => "",
+            "server" => "localhost",
+            "port" => 3306,
+            "username" => "root",
+            "password" => ""
+        ];
+        $database_default = array_merge($database_default, $database);
+
+        $this->database = new Medoo([
+            
+        ]);
     }
 
     /**
