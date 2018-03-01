@@ -18,6 +18,8 @@ class DATABASE_SessionManager implements SessionInterface {
     private $name;
     private $length;
 
+    private $session;
+
     /**
      * SessionInterface constructor.
      * @param array $database
@@ -82,6 +84,10 @@ class DATABASE_SessionManager implements SessionInterface {
         if (empty($_COOKIE[$this->name])) {
             $this->generateToken($this->length);
             $this->createCookie($this->name);
+        } else {
+            $this->session = $this->database->select($this->table, "*", [
+               "token" => $this->token
+            ]);
         }
     }
 
