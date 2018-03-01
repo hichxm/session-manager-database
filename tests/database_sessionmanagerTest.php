@@ -55,5 +55,28 @@ class database_sessionmanagerTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue(true);
     }
 
+    /**
+     * @test
+     */
+    public function check_if_work_with_cookie_default_option()
+    {
+        $session_method = new DATABASE_SessionManager([
+            "type" => "mysql",
+            "name" => "sessionmanager",
+            "server" => "127.0.0.1",
+            "port" => 3306,
+            "username" => "root",
+            "password" => ""
+        ]);
+        $session = new SessionManager($session_method);
+
+        $session->start();
+        $session->stop();
+
+        //Delete table
+
+        $this->assertTrue(true);
+    }
+
 
 }
