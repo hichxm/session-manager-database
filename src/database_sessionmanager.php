@@ -148,7 +148,11 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function unset($key)
     {
-        // TODO: Implement unset() method.
+        unset($this->session[$key]);
+        $this->database->delete($this->table, [
+            "token" => $this->token,
+            "name" => $key
+        ]);
     }
 
 

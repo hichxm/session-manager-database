@@ -34,6 +34,11 @@ dump($_COOKIE);
 dump($session->bridge->session);
 dump($session->get("okok"));
 dump($session->get("test"));
+
+$session->unset("test");
+
+dump($session->bridge->session);
+
 $session->stop();
 ?>
 </body>
