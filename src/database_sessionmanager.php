@@ -79,7 +79,10 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function start()
     {
-        // TODO: Implement start() method.
+        if (empty($_COOKIE[$this->name])) {
+            $this->generateToken($this->length);
+            $this->createCookie($this->name);
+        }
     }
 
     /**
@@ -153,5 +156,14 @@ class DATABASE_SessionManager implements SessionInterface {
                 COLLATE='utf8_general_ci'
                 ENGINE=MyISAM;
                 ");
+    }
+
+    /**
+     * @param string $name
+     * @return void
+     */
+    private function createCookie($name = "PHPSESSID")
+    {
+        setcookie($name, $this->token);
     }
 }
