@@ -15,9 +15,9 @@ class DATABASE_SessionManager implements SessionInterface {
     public $database;
 
     private $table = "sessionmanager";
+    private $name = "PHPSESSID";
+    private $length = 25;
     private $token;
-    private $name;
-    private $length;
 
     private $session;
 
