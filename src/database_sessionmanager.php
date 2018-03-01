@@ -31,9 +31,20 @@ class DATABASE_SessionManager implements SessionInterface {
         ];
         $database_default = array_merge($database_default, $database);
 
-        $this->database = new Medoo([
-            
-        ]);
+        if ($database_default['type'] === "sqlite") {
+            $this->database = new Medoo([
+                'database_type' => $database_default['type'],
+                'database_file' => $database_default['file']
+            ]);
+        } else {
+            $this->database = new Medoo([
+                'database_type' => $database_default['type'],
+                'database_name' => $database_default['name'],
+                'server' => $database_default['server'] . ":" . $database_default['port'],
+                'username' => $database_default['username'],
+                'password' => $database_default['password']
+            ]);
+        }
     }
 
     /**
