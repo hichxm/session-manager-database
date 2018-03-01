@@ -88,6 +88,7 @@ class DATABASE_SessionManager implements SessionInterface {
             $this->generateToken($this->length);
             $this->createCookie($this->name);
         } else {
+            $this->token = $_COOKIE[$this->name];
             $this->session = $this->database->select($this->table, "*", [
                "token" => $_COOKIE[$this->name]
             ]);
