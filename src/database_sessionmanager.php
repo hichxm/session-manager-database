@@ -30,12 +30,14 @@ class DATABASE_SessionManager implements SessionInterface {
         //Initialise option
         $option_default = [
             "name" => "PHPSESSID",
-            "length" => 25
+            "length" => 25,
+            "table" => "sessionmanager"
         ];
         $option_default = array_merge($option_default, $option);
 
         $this->name = $option_default['name'];
         $this->length = $option_default['length'];
+        $this->table = $option_default['table'];
 
         //Initialise database option
         $database_default = [
@@ -53,6 +55,7 @@ class DATABASE_SessionManager implements SessionInterface {
                 'database_type' => $database_default['type'],
                 'database_file' => $database_default['file']
             ]);
+            $this->generateTable($this->table);
         } else {
             $this->database = new Medoo([
                 'database_type' => $database_default['type'],
@@ -61,6 +64,7 @@ class DATABASE_SessionManager implements SessionInterface {
                 'username' => $database_default['username'],
                 'password' => $database_default['password']
             ]);
+            $this->generateTable($this->table);
         }
     }
 
@@ -144,12 +148,13 @@ class DATABASE_SessionManager implements SessionInterface {
     }
 
     /**
+     * @param string $table
      * @return void
      */
-    private function generateTable()
+    private function generateTable($table = "sessionmanager")
     {
         $this->database->query(
-            "CREATE TABLE IF NOT EXISTS `". $this->table ."` (
+            "CREATE TABLE IF NOT EXISTS `". $table ."` (
                     `id` INT(11) NOT NULL AUTO_INCREMENT,
                     `token` VARCHAR(25) NOT NULL,
                     `name` VARCHAR(50) NULL DEFAULT NULL,
