@@ -95,4 +95,23 @@ class DATABASE_SessionManager implements SessionInterface {
     {
         // TODO: Implement unset() method.
     }
+
+    /**
+     * @param string $table
+     */
+    private function generateTable($table = "sessionmanager")
+    {
+        $this->database->query(
+            "CREATE TABLE IF NOT EXISTS `". $table ."` (
+                    `id` INT(11) NOT NULL AUTO_INCREMENT,
+                    `token` VARCHAR(25) NOT NULL,
+                    `name` VARCHAR(50) NULL DEFAULT NULL,
+                    `value` LONGTEXT NULL,
+                    `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (`id`))
+                COLLATE='utf8_general_ci'
+                ENGINE=MyISAM;
+                ");
+    }
 }
