@@ -102,7 +102,7 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function get($key)
     {
-        // TODO: Implement get() method.
+
     }
 
     /**
@@ -113,12 +113,28 @@ class DATABASE_SessionManager implements SessionInterface {
      */
     public function set($key, $value)
     {
-        array_push($this->session, [$key => $value]);
+        foreach ($this->session as $save) {
+            switch ($save['name']) {
+                case $key:
+                    $this->database->update($this->table, [
+                        "value" => $value
+                    ], [
+                        "token" => $this->token,
+                        "name" => $key
+                    ]);
+
+                    return ;
+                    break;
+            }
+        }
+
         $this->database->insert($this->table, [
             "token" => $this->token,
             "name" => $key,
             "value" => $value
         ]);
+
+        return ;
     }
 
     /**
