@@ -93,7 +93,12 @@ class DATABASE_SessionManager implements SessionInterface {
                "token" => $_COOKIE[$this->name]
             ]);
             foreach ($datafromdatabase as $data) {
-                $this->session[$data['name']] = $data['value'];
+                $unserialized = unserialize($data['value']);
+                if (!$unserialized) {
+                    $this->session[$data['name']] = $data['value'];
+                } else {
+                    $this->session[$data['name']] = $unserialized;
+                }
             }
         }
     }
