@@ -14,6 +14,7 @@ class DATABASE_SessionManager implements SessionInterface {
 
     private $database;
     private $table = "sessionmanager";
+    private $token;
 
     /**
      * SessionInterface constructor.
@@ -114,6 +115,7 @@ class DATABASE_SessionManager implements SessionInterface {
         ]);
 
         if (empty($req)){
+            $this->token = $string;
             return $string;
         }
 
