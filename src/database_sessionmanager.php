@@ -12,7 +12,8 @@ use SessionInterface;
  */
 class DATABASE_SessionManager implements SessionInterface {
 
-    private $database;
+    public $database;
+    
     private $table = "sessionmanager";
     private $token;
     private $name;
